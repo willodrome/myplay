@@ -1,17 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ProfileImage } from "../Components/ProfileImage";
 import { useAuth } from "../Context/UserContext";
 import { useForm } from "react-hook-form";
 
 export const ProfilePage = () => {
   const { user, getUser } = useAuth();
+  const [loading, setLoading] = useState();
   const { register, handleSubmit, errors, reset, watch } = useForm({ mode: "onBlur" });
   const password = useRef({});
   password.current = watch("password", "");
 
-  const onEditProfile = data => {
-    console.log("Profile data:", data);
-    reset();
+  const onEditProfile = async data => {
+    setLoading(true);
+    const remoteUrl = "http://localhost:5000";
+    await fetch(`${remoteUrl}/save`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setLoading(false);
+        console.log(data.userdata);
+        //reset();
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -20,8 +38,10 @@ export const ProfilePage = () => {
     }
   }, [user, getUser]);
 
+  const formClass = loading && ` loading`;
+
   return (
-    <form className="height-cont" onSubmit={handleSubmit(onEditProfile)}>
+    <form className={`height-cont ${formClass}`} onSubmit={handleSubmit(onEditProfile)}>
       <div>
         <div className="bg-bar"></div>
         <ProfileImage />
