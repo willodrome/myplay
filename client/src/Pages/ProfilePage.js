@@ -23,8 +23,7 @@ export const ProfilePage = () => {
       .then(response => response.json())
       .then(data => {
         setLoading(false);
-        console.log(data.userdata);
-        //reset();
+        reset();
       })
       .catch(err => {
         console.error(err);
@@ -38,10 +37,10 @@ export const ProfilePage = () => {
     }
   }, [user, getUser]);
 
-  const formClass = loading && ` loading`;
+  const formClass = `height-cont ${loading && "loading"}`;
 
   return (
-    <form className={`height-cont ${formClass}`} onSubmit={handleSubmit(onEditProfile)}>
+    <form className={formClass} onSubmit={handleSubmit(onEditProfile)}>
       <div>
         <div className="bg-bar"></div>
         <ProfileImage />
