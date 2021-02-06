@@ -27,7 +27,7 @@ export const ProfileImage = () => {
   return (
     <div className="file-picker">
       <input type="file" accept=".png, .jpg" ref={fileInput} onChange={e => fileChange(e.target.files)} />
-      <div className="avatar avatar-md" role="button" onClick={() => fileInput.current.click()} style={user && user.avatar && { backgroundImage: `url('${user.avatar}')` }}>
+      <div className="avatar avatar-md" role="button" aria-label="Upload avatar" onClick={() => fileInput.current.click()} style={user && user.avatar && { backgroundImage: `url('${user.avatar}')` }}>
         {acronym}
       </div>
       <span>Update Avatar</span>

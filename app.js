@@ -11,7 +11,7 @@ const app = express();
 const userData = __dirname + "/users/user-data.json";
 
 const storage = multer.diskStorage({
-  destination: "./public/uploads",
+  destination: "./client/build/public/uploads",
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}x${(Math.random() * 100000).toFixed()}${path.extname(file.originalname)}`);
   },
@@ -21,7 +21,17 @@ const upload = multer({ storage });
 const uploadTask = upload.single("avatar");
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, "./public")));
+app.use(express.static(path.join(__dirname, "./client/build")));
+// app.use((req, res, next) => {
+//   //console.log(req.url.split("/")[1]);
+//   if (req.url.split("/")[1] === "api") {
+//     express.static(path.join(__dirname, "./public"));
+//     console.log("api");
+//   } else {
+//     express.static(path.join(__dirname, "./client/public"));
+//     console.log("client");
+//   }
+// });
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,7 +43,7 @@ app.get("/", async (req, res) => {
 // Upload profile image
 app.post("/api/upload", uploadTask, async (req, res, next) => {
   try {
-    res.status(200).json({ message: "Image uploaded successfully", filename: `/uploads/${req.file.filename}` });
+    res.status(200).json({ message: "Image uploaded successfully", filename: `/public/uploads/${req.file.filename}` });
   } catch (err) {
     return next(err);
   }

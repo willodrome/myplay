@@ -9,7 +9,7 @@ export const Header = () => {
   return (
     <div id="header">
       <div className="brand">
-        <NavLink to="/">
+        <NavLink to="/" role="button" aria-label="Home screen">
           <span className="logo"></span>
         </NavLink>
       </div>
@@ -19,7 +19,7 @@ export const Header = () => {
         </div>
       </div>
       <div className="profile">
-        <NavLink to="/profile" className="avatar avatar-sm" role="button" style={user && user.avatar && { backgroundImage: `url('${user.avatar}')` }}>
+        <NavLink to="/profile" className="avatar avatar-sm" role="button" aria-label="User profile" style={user && user.avatar && { backgroundImage: `url('${user.avatar}')` }}>
           {acronym}
         </NavLink>
       </div>
