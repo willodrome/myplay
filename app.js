@@ -11,7 +11,7 @@ const app = express();
 const userData = __dirname + "/users/user-data.json";
 
 const storage = multer.diskStorage({
-  destination: "./client/build/public/uploads",
+  destination: "./public/uploads",
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}x${(Math.random() * 100000).toFixed()}${path.extname(file.originalname)}`);
   },
@@ -21,19 +21,8 @@ const upload = multer({ storage });
 const uploadTask = upload.single("avatar");
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, "./client/build")));
-// app.use((req, res, next) => {
-//   //console.log(req.url.split("/")[1]);
-//   if (req.url.split("/")[1] === "api") {
-//     express.static(path.join(__dirname, "./public"));
-//     console.log("api");
-//   } else {
-//     express.static(path.join(__dirname, "./client/public"));
-//     console.log("client");
-//   }
-// });
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
 
 // Home route
 app.get("/", async (req, res) => {
