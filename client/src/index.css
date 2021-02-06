@@ -1,6 +1,7 @@
 /* imports */
 
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500&display=swap'); */
+
 /* end of imports */
 
 /* global vars  */
@@ -131,6 +132,7 @@ input {
   margin: 0 12vw;
   flex: 0 1 auto;
   padding-bottom: 0.25em;
+  border-radius: 0;
 }
 
 .input-error {

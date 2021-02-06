@@ -5,14 +5,14 @@ import { useForm } from "react-hook-form";
 
 export const ProfilePage = () => {
   const { user, getUser } = useAuth();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, errors, reset, watch } = useForm({ mode: "onBlur" });
   const password = useRef({});
+  const remoteUrl = "/api";
   password.current = watch("password", "");
 
   const onEditProfile = async data => {
     setLoading(true);
-    const remoteUrl = "http://localhost:5000";
     await fetch(`${remoteUrl}/save`, {
       method: "POST",
       headers: {

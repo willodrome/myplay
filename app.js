@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 });
 
 // Upload profile image
-app.post("/upload", uploadTask, async (req, res, next) => {
+app.post("/api/upload", uploadTask, async (req, res, next) => {
   try {
     res.status(200).json({ message: "Image uploaded successfully", filename: `/uploads/${req.file.filename}` });
   } catch (err) {
@@ -40,7 +40,7 @@ app.post("/upload", uploadTask, async (req, res, next) => {
 });
 
 // Save profile data
-app.post("/save", async (req, res, next) => {
+app.post("/api/save", async (req, res, next) => {
   try {
     const { firstname, lastname, password, phone } = req.body;
     const pwdHash = await bcrypt.hash(password, 4);
@@ -65,6 +65,6 @@ app.post("/save", async (req, res, next) => {
   }
 });
 
-const port = 5000;
+const port = 7000;
 
 app.listen(port, () => console.log(`Server running on port ${port}...`));

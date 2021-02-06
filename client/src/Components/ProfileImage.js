@@ -5,9 +5,9 @@ export const ProfileImage = () => {
   const { user, setUser } = useContext(UserContext);
   const fileInput = useRef(null);
   const acronym = user && !user.avatar && `${(user.firstName && user.firstName.slice(0, 1)) || "⋯"}${(user.lastName && user.lastName.slice(0, 1)) || ""}`;
+  const remoteUrl = "/api";
 
   const fileChange = async files => {
-    const remoteUrl = "http://localhost:5000";
     const formData = new FormData();
     formData.append("avatar", files[0]);
 
@@ -17,14 +17,13 @@ export const ProfileImage = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        setUser({ avatar: `${remoteUrl}${data.filename}` });
+        // console.log(data);
+        setUser({ avatar: `${data.filename}` });
       })
       .catch(err => {
-        console.error(err);
+        console.log(err);
       });
   };
-
   return (
     <div className="file-picker">
       <input type="file" accept=".png, .jpg" ref={fileInput} onChange={e => fileChange(e.target.files)} />
